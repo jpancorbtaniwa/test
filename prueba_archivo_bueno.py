@@ -1,15 +1,15 @@
 import random
 import string
 
-def generate_random_string(length=10):
-  letters = string.ascii_lowercase
-  return ''.join(random.choice(letters) for i in range(length))
+# def generate_random_string(length=10):
+#   letters = string.ascii_lowercase
+#   return ''.join(random.choice(letters) for i in range(length))
 
-def calculate_factorial(n):
-  if n == 0:
-    return 1
-  else:
-    return n * calculate_factorial(n-1)
+# def calculate_factorial(n):
+#   if n == 0:
+#     return 1
+#   else:
+#     return n * calculate_factorial(n-1)
 
 def is_prime(num):
   if num <= 1:
@@ -62,8 +62,8 @@ def is_palindrome(s):
   return s == s[::-1]
 
 def main():
-  print("Random String:", generate_random_string())
-  print("Factorial of 5:", calculate_factorial(5))
+  # print("Random String:", generate_random_string())
+  # print("Factorial of 5:", calculate_factorial(5))
   print("Is 7 prime?:", is_prime(7))
   print("First 10 Fibonacci numbers:", fibonacci(10))
   print("Bubble Sort [64, 34, 25, 12, 22, 11, 90]:", bubble_sort([64, 34, 25, 12, 22, 11, 90]))
