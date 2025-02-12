@@ -35,22 +35,41 @@
 #         include_paths: ${{ steps.inputs.include_paths }} # Optional, specify directories to include
 #         exclude_paths: ${{ steps.inputs.exclude_paths }} # Optional, specify directories to exclude
 
-name: Auto-PR-Body Generator
+# name: Auto-PR-Body Generator
+
+# on:
+#   pull_request:
+
+# permissions:
+#   contents: read
+#   repository-projects: write
+#   pull-requests: write
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: AI powerd Automatic PR Body Generation
+#         uses: jbrocher/auto-pr-body-generator@v0.2.2
+#         with:
+#           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 on:
   pull_request:
-
-permissions:
-  contents: read
-  repository-projects: write
-  pull-requests: write
+    types: [opened, synchronize]
 
 jobs:
-  build:
+  hello_world_job:
     runs-on: ubuntu-latest
+    name: ChatGPT code reviewer
     steps:
-      - uses: actions/checkout@v2
-      - name: AI powerd Automatic PR Body Generation
-        uses: jbrocher/auto-pr-body-generator@v0.2.2
+      - name: ChatGTP code reviewer code
+        uses: fr33d00m/chatgpt-github-actions@v2-turbo
         with:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          openai_api_key: ${{ secrets.openai_api_key }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_pr_id: ${{ github.event.number }}
+          openai_engine: "gpt-3.5-turbo" #optional
+          openai_temperature: 0.2 #optional
+          openai_max_tokens: 2048 #optional
