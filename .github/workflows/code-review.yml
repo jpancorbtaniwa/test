@@ -12,8 +12,7 @@ on:
 concurrency:
   group:
     ${{ github.repository }}-${{ github.event.number || github.head_ref ||
-    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
-    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+    github.sha }}-${{ github.workflow }}-${{ github.event_name == 'pull_request_review_comment' && 'pr_comment' || 'pr' }}
   cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
 
 jobs:
@@ -28,4 +27,4 @@ jobs:
           debug: false
           review_simple_changes: false
           review_comment_lgtm: false
-          openai_engine: "gpt-4"
+          # openai_engine: "gpt-4"
