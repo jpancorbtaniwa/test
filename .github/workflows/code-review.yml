@@ -1,75 +1,31 @@
-# name: Code review
-# on: [pull_request]
-# jobs:
-#   code-review:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: read
-#       pull-requests: write
-#     steps:
-#       - uses: fxchen/code-review@latest
-#         with:
-#           model: 'gpt-3.5-turbo-16k'
-#           openai-key: ${{ secrets.OPENAI_API_KEY }}
-# name: AI Code Review
+name: Code Review
 
-# on:
-#   pull_request:
-#     types: [opened, synchronize, reopened, ready_for_review]
-
-# jobs:
-#   ai_code_review:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: AI Code Review
-#       uses: AleksandrFurmenkovOfficial/ai-code-review@v0.4.1
-#       with:
-#         token: ${{ secrets.GITHUB_TOKEN }} # Token for accessing PRs, file reading, and commenting capabilities
-#         openai_api_key: ${{ secrets.OPENAI_API_KEY }} # Access to the GPT-4 class model
-#         owner: ${{ github.repository_owner }}
-#         repo: ${{ github.event.repository.name }}
-#         pr_number: ${{ github.event.number }}
-#         include_extensions: ${{ steps.inputs.include_extensions }} # Optional, specify file types to include e.g., ".py,.js,.html"
-#         exclude_extensions: ${{ steps.inputs.exclude_extensions }} # Optional, specify file types to exclude
-#         include_paths: ${{ steps.inputs.include_paths }} # Optional, specify directories to include
-#         exclude_paths: ${{ steps.inputs.exclude_paths }} # Optional, specify directories to exclude
-
-# name: Auto-PR-Body Generator
-
-# on:
-#   pull_request:
-
-# permissions:
-#   contents: read
-#   repository-projects: write
-#   pull-requests: write
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: AI powerd Automatic PR Body Generation
-#         uses: jbrocher/auto-pr-body-generator@v0.2.2
-#         with:
-#           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   pull_request:
-    types: [opened, synchronize]
+  pull_request_review_comment:
+    types: [created]
+
+concurrency:
+  group:
+    ${{ github.repository }}-${{ github.event.number || github.head_ref ||
+    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
+    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+  cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
 
 jobs:
-  hello_world_job:
+  review:
     runs-on: ubuntu-latest
-    name: ChatGPT code reviewer
     steps:
-      - name: ChatGTP code reviewer code
-        uses: fr33d00m/chatgpt-github-actions@v2-turbo
+      - uses: coderabbitai/ai-pr-reviewer@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          openai_api_key: ${{ secrets.openai_api_key }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_pr_id: ${{ github.event.number }}
-          openai_engine: "gpt-3.5-turbo" #optional
-          openai_temperature: 0.2 #optional
-          openai_max_tokens: 2048 #optional
+          debug: false
+          review_simple_changes: false
+          review_comment_lgtm: false
+          openai_engine: "gpt-4"
