@@ -1,23 +1,23 @@
 import random
 import string
 
-def generate_random_string(length=10):
-  letters = string.ascii_lowercase
-  return ''.join(random.choice(letters) for i in range(length))
+# def generate_random_string(length=10):
+#   letters = string.ascii_lowercase
+#   return ''.join(random.choice(letters) for i in range(length))
 
-def calculate_factorial(n):
-  if n == 0:
-    return 1
-  else:
-    return n * calculate_factorial(n-1)
+# def calculate_factorial(n):
+#   if n == 0:
+#     return 1
+#   else:
+#     return n * calculate_factorial(n-1)
 
-def is_prime(num):
-  if num <= 1:
-    return False
-  for i in range(2, int(num**0.5) + 1):
-    if num % i == 0:
-      return False
-  return True
+# def is_prime(num):
+#   if num <= 1:
+#     return False
+#   for i in range(2, int(num**0.5) + 1):
+#     if num % i == 0:
+#       return False
+#   return True
 
 def fibonacci(n):
   fib_sequence = [0, 1]
