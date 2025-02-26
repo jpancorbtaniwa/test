@@ -14,7 +14,7 @@ def generate_random_string(length: int = 10) -> str:
     if length <= 0:
         raise ValueError("Length must be a positive integer.")
     letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))
+    return ''.join(random.choices(letters, k=length))
 
 def calculate_factorial(n: int) -> int:
     """
