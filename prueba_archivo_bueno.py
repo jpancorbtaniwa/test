@@ -1,37 +1,37 @@
 import random
 import string
 
-# def generate_random_string(length: int = 10) -> str:
-#     """
-#     Generate a random string of lowercase letters.
+def generate_random_string(length: int = 10) -> str:
+    """
+    Generate a random string of lowercase letters.
 
-#     Parameters:
-#     length (int): Length of the random string to generate. Default is 10.
+    Parameters:
+    length (int): Length of the random string to generate. Default is 10.
 
-#     Returns:
-#     str: Randomly generated string.
-#     """
-#     if length <= 0:
-#         raise ValueError("Length must be a positive integer.")
-#     letters = string.ascii_lowercase
-#     return ''.join(random.choice(letters) for i in range(length))
+    Returns:
+    str: Randomly generated string.
+    """
+    if length <= 0:
+        raise ValueError("Length must be a positive integer.")
+    letters = string.ascii_lowercase
+    return ''.join(random.choices(letters, k=length))
 
-# def calculate_factorial(n: int) -> int:
-#     """
-#     Calculate the factorial of a given number.
+def calculate_factorial(n: int) -> int:
+    """
+    Calculate the factorial of a given number.
 
-#     Parameters:
-#     n (int): The number to calculate the factorial of.
+    Parameters:
+    n (int): The number to calculate the factorial of.
 
-#     Returns:
-#     int: Factorial of the given number.
-#     """
-#     if n < 0:
-#         raise ValueError("Cannot calculate factorial of a negative number.")
-#     if n == 0:
-#         return 1
-#     else:
-#         return n * calculate_factorial(n-1)
+    Returns:
+    int: Factorial of the given number.
+    """
+    if n < 0:
+        raise ValueError("Cannot calculate factorial of a negative number.")
+    if n == 0:
+        return 1
+    else:
+        return n * calculate_factorial(n-1)
 
 def is_prime(num: int) -> bool:
     """
@@ -161,8 +161,8 @@ def is_palindrome(s: str) -> bool:
     return s == s[::-1]
 
 def main():
-    # print("Random String:", generate_random_string())
-    # print("Factorial of 5:", calculate_factorial(5))
+    print("Random String:", generate_random_string())
+    print("Factorial of 5:", calculate_factorial(5))
     print("Is 7 prime?:", is_prime(7))
     print("First 10 Fibonacci numbers:", fibonacci(10))
     print("Bubble Sort [64, 34, 25, 12, 22, 11, 90]:", bubble_sort([64, 34, 25, 12, 22, 11, 90]))
